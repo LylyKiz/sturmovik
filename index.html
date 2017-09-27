@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Тег SCRIPT</title>
+	<style>
+		.textShow > button {
+			background: red; /* Синий цвет фона */
+			color: white; /* Белые буквы */
+			font-size: 9pt; /* Размер шрифта в пунктах */
+		}
+	</style>
+</head>
+<body>
+
+<a href="#" style="color: green;" onclick="Zadanie1();">Задание 1</a>
+<br>
+<a href="#" style="color: green;" onclick="Zadanie2();">Задание 2</a>
+<br>
+<a href="#" style="color: green;" onclick="Zadanie3();">Задание 3</a>
+<br>
+<a href="#" style="color: green;" onclick="Zadanie4();">Задание 4</a>
+<br>
+<br>
+<div id='text' data-role="buttons">
+	<button>1</button>
+	<button>2</button>
+	<button>8</button>
+	<button>9</button>
+</div>
+
+<br>
+<a href="#" style="color: green;" onclick="Zadanie5();">Задание 5</a>
+<br>
+<br>
+
+Ответ:
+<div id="display"></div>
+
+
+<script type="text/javascript">
+
+	function Zadanie1() {
+
+		var otvet = [];
+		var otvetIndex = [];
+		var input = [5, 20, 40, 55, 9], x = 18;
+		var closestLeft,
+			closestRight,
+			lb,
+			rb,
+			current;
+
+		for (var i = 0; i < input.length; i++) {
+			current = input[i];
+			if (current < x && (typeof closestLeft === 'undefined' || closestLeft < current)) {
+				closestLeft = current;
+
+			} else if (current > x && (typeof closestRight === 'undefined' || closestRight > current)) {
+				closestRight = current;
+			}
+		}
+
+		lb = x - closestLeft;
+		rb = closestRight - x;
+
+		if (lb < rb) {
+			otvet[0] = closestLeft;
+		} else if (lb == rb) {
+			otvet[0] = closestLeft;
+			otvet[1] = closestRight;
+		} else {
+			otvet[0] = closestRight;
+		}
+
+		for (var j = 0; j < otvet.length; j++) {
+			otvetIndex[j] = input.indexOf(otvet[j]);
+		}
+		console.log("Индекс ближайшего числа " + otvetIndex);
+	};
+
+	function Zadanie2() {
+		function add(x) {
+			return function (y) {
+				return x + y;
+			};
+		}
+
+		var addTwo = add(2);
+		addTwo(4);
+		//addTwo(4) === 6; // true
+		//dd(3)(4) === 7; // true
+
+		var danfa = 'В var addTwo = add(2); создается копия функции add, которой присваивается хвачение x=2. Далее addTwo(4) присваивает значение y=4, в результате идет действие сложение x+y. А здесь (add(3)(4)) вызываебтся функция add, которой передаются значение x=3 и y=4. В итоге сложения 3+4 получается 7.';
+		document.getElementById('display').innerHTML = danfa;
+
+
+	}
+
+	function Zadanie3() {
+		var str = '<b data-count="4"><i data-sum="5"></i></b>';
+		console.log(str);
+		var test = /\d+/g;
+		var s2 = str.replace(test,
+			function ($0) {
+				return ($0 * 3);
+			}
+		);
+		console.log(s2);
+	}
+
+	function Zadanie4() {
+
+		var count=document.getElementById('text').children.length;
+		console.log(count);
+
+		document.getElementById('text').className = "textShow";
+
+	}
+	function Zadanie5() {
+		console.log('select compania.name as "Название компании", count(*) as "Количество филиалов" from filial,compania where compania.id=filial.id_compania GROUP BY filial.id_compania HAVING COUNT(*) > 3');
+	}
+</script>
+
+</body>
+</html>
